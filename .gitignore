@@ -1,5 +1,5 @@
 node_modules/
-.gitignore/
+.gitignore
 coverage/
 notes.md
 _*/
