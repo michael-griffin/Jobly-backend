@@ -1,15 +1,18 @@
 "use strict";
 
-/** Database setup for jobly. */
-
+const fs = require("fs");
 const { Client } = require("pg");
+const { getDatabaseConfigAiven } = require("./config");
+ //mostly unused for aiven db, leaving for logging error messages.
 const { getDatabaseUri } = require("./config");
-
 const databaseUri = getDatabaseUri();
 
-const db = new Client({
-  connectionString: databaseUri,
-});
+
+const config = getDatabaseConfigAiven();
+const db = new Client(config);
+// const db = new Client({
+//   connectionString: databaseUri,
+// });
 
 async function connectDb() {
   // Jest replaces console.* with custom methods; get the real ones for this
