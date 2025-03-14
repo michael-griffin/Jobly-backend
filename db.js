@@ -7,9 +7,20 @@ const { getDatabaseConfigAiven } = require("./config");
 const { getDatabaseUri } = require("./config");
 const databaseUri = getDatabaseUri();
 
+const db = new Client({
+  connectionString: databaseUri,
+  ssl: {
+    rejectUnauthorized: true,
+    ca: fs.readFileSync("./ca.pem").toString(),
+  },
+});
 
-const config = getDatabaseConfigAiven();
-const db = new Client(config);
+
+//Aiven, with extra environment variables
+// const config = getDatabaseConfigAiven();
+// const db = new Client(config);
+
+//Original, non Aiven
 // const db = new Client({
 //   connectionString: databaseUri,
 // });
