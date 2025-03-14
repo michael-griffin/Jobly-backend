@@ -1,24 +1,22 @@
 "use strict";
 
-const fs = require("fs");
+/**
+ * March 2025 - switched to Aiven database. This is free, but also can trigger
+ * errors regarding a 'self signed certificate'. The fix Aiven suggests is to
+ * modify the 'db = new Client(...) command to include additional info/overrides.
+ * - This is now done in the new config function getDatabaseConfigAiven.
+ * - This requires several new environment variables be set when deploying a backend
+ */
 const { Client } = require("pg");
 const { getDatabaseConfigAiven } = require("./config");
  //mostly unused for aiven db, leaving for logging error messages.
 const { getDatabaseUri } = require("./config");
 const databaseUri = getDatabaseUri();
 
-const db = new Client({
-  connectionString: databaseUri,
-  ssl: {
-    rejectUnauthorized: true,
-    ca: fs.readFileSync("./ca.pem").toString(),
-  },
-});
 
-
-//Aiven, with extra environment variables
-// const config = getDatabaseConfigAiven();
-// const db = new Client(config);
+//Aiven, requires extra environment variables (see getDatabase func in config)
+const config = getDatabaseConfigAiven();
+const db = new Client(config);
 
 //Original, non Aiven
 // const db = new Client({
