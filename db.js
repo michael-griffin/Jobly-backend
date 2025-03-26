@@ -8,20 +8,20 @@
  * - This requires several new environment variables be set when deploying a backend
  */
 const { Client } = require("pg");
-const { getDatabaseConfigAiven } = require("./config");
+//const { getDatabaseConfigAiven } = require("./config");
  //mostly unused for aiven db, leaving for logging error messages.
 const { getDatabaseUri } = require("./config");
 const databaseUri = getDatabaseUri();
 
 
 //Aiven, requires extra environment variables (see getDatabase func in config)
-const config = getDatabaseConfigAiven();
-const db = new Client(config);
+// const config = getDatabaseConfigAiven();
+// const db = new Client(config);
 
 //Original, non Aiven
-// const db = new Client({
-//   connectionString: databaseUri,
-// });
+const db = new Client({
+  connectionString: databaseUri,
+});
 
 async function connectDb() {
   // Jest replaces console.* with custom methods; get the real ones for this
