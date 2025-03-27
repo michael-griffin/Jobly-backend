@@ -21,6 +21,7 @@ const databaseUri = getDatabaseUri();
 //Original, non Aiven
 const db = new Client({
   connectionString: databaseUri,
+  ssl: { rejectUnauthorized: false } //needed for Heroku DB
 });
 
 async function connectDb() {
